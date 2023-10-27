@@ -9,7 +9,8 @@
 
 <p>
     <a asp-page="Create">Create New</a>
-</p>
+</p> 
+
 <table class="table">
     <thead>
         <tr>
@@ -32,13 +33,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Book) {
+        @foreach (var item in Model.Book)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author)
+                    <select name="Authors">
+                        @foreach (var author in Model.Authors)
+                        {
+                            <option value=@author.ID>@(author.FirstName + " " + author.LastName)</option>
+                        }
+                    </select>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
