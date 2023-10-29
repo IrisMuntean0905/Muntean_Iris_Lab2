@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Muntean_Iris_Lab2.Data;
 using Muntean_Iris_Lab2.Models;
 
-namespace Muntean_Iris_Lab2.Pages.Books
+namespace Muntean_Iris_Lab2.Pages.Categories
 {
-    public class EditModel : BookCategoriesPageModel
+    public class EditModel : PageModel
     {
         private readonly Muntean_Iris_Lab2.Data.Muntean_Iris_Lab2Context _context;
 
@@ -21,28 +21,21 @@ namespace Muntean_Iris_Lab2.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null || _context.Category == null)
             {
                 return NotFound();
             }
 
-            //cerinta 15- nu stiu daca ii bine pus aici
-
-
-            var book =  await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            var category =  await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
-            Book = book;
-
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
-            "PublisherName");
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "FirstName");
+            Category = category;
             return Page();
         }
 
@@ -55,7 +48,7 @@ namespace Muntean_Iris_Lab2.Pages.Books
                 return Page();
             }
 
-            _context.Attach(Book).State = EntityState.Modified;
+            _context.Attach(Category).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +56,7 @@ namespace Muntean_Iris_Lab2.Pages.Books
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookExists(Book.ID))
+                if (!CategoryExists(Category.ID))
                 {
                     return NotFound();
                 }
@@ -76,9 +69,9 @@ namespace Muntean_Iris_Lab2.Pages.Books
             return RedirectToPage("./Index");
         }
 
-        private bool BookExists(int id)
+        private bool CategoryExists(int id)
         {
-          return (_context.Book?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Category?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
