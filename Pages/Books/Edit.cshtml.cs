@@ -50,7 +50,7 @@ namespace Muntean_Iris_Lab2.Pages.Books
             var authorList = _context.Author.Select(x => new
             {
                 x.ID,
-                FullName = x.LastName + " " + x.FirstName
+                FullName = x.FirstName + " " + x.LastName
             });
             ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
             ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
@@ -81,7 +81,7 @@ selectedCategories)
             if (await TryUpdateModelAsync<Book>(
             bookToUpdate,
             "Book",
-            i => i.Title, i => i.Author,
+            i => i.Title, i => i.AuthorID,
             i => i.Price, i => i.PublishingDate, i => i.PublisherID))
             {
                 UpdateBookCategories(_context, selectedCategories, bookToUpdate);
