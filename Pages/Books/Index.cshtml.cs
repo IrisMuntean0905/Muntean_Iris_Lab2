@@ -27,8 +27,8 @@ namespace Muntean_Iris_Lab2.Pages.Books
         public int CategoryID { get; set; }
 
         //cerinta 21- ramane authors sau nu?
-        public IList<Author> Authors { get; set; } = default!;
-        public SelectListItem AuthorsList { get; set; } = default!;
+       // public IList<Author> Authors { get; set; } = default!;
+        //public SelectListItem AuthorsList { get; set; } = default!;
 
         public async Task OnGetAsync(int? id, int? categoryID)
         {
@@ -36,6 +36,7 @@ namespace Muntean_Iris_Lab2.Pages.Books
 
             BookD.Books = await _context.Book
                         .Include(b => b.Publisher)
+                        .Include(b => b.Author)
                         .Include(b => b.BookCategories)
                         .ThenInclude(b => b.Category)
                         .AsNoTracking()
