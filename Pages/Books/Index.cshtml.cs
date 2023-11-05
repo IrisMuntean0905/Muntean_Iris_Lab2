@@ -46,8 +46,8 @@ namespace Muntean_Iris_Lab2.Pages.Books
             CurrentFilter = searchString;
 
             BookD.Books = await _context.Book
+                         .Include(b => b.Author)
                         .Include(b => b.Publisher)
-                        .Include(b => b.Author)
                         .Include(b => b.BookCategories)
                         .ThenInclude(b => b.Category)
                         .AsNoTracking()
