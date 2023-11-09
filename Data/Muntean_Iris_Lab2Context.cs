@@ -26,7 +26,7 @@ namespace Muntean_Iris_Lab2.Data
         {
             modelBuilder.Entity<Book>()
                 .HasOne(e => e.Borrowing)
-            .WithOne(e => e.Book)
+                .WithOne(e => e.Book)
                 .HasForeignKey<Borrowing>("BookID");
         }
 
