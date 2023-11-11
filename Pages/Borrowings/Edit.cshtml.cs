@@ -36,8 +36,11 @@ namespace Muntean_Iris_Lab2.Pages.Borrowings
                 return NotFound();
             }
             Borrowing = borrowing;
-           ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-           ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["BookID"] = new SelectList(_context.Book.Include(b => b.Author), "ID", "Title");
+            ViewData["MemberID"] = new SelectList(_context.Member, "ID", "FullName");
+
+            //ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
+            //ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
             return Page();
         }
 
